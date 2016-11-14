@@ -15,8 +15,7 @@ object BuildSettings {
     version := buildVersion,
     scalaVersion := buildScalaVersion,
     scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-language:implicitConversions", "-language:postfixOps", "-language:reflectiveCalls", "-encoding", "utf8"),
-    javaOptions += "-Xmx1G",
-    shellPrompt := ShellPrompt.buildShellPrompt
+    javaOptions += "-Xmx1G"
   )
 }
 
