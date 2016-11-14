@@ -14,7 +14,7 @@ class DetachedRoute(refFactory: ActorRefFactory) extends HttpService with Defaul
   val route = pathPrefix("api" / "detached") {
     detach() {
       get {
-        complete("")
+        complete("Detached")
       }
     }
   }
