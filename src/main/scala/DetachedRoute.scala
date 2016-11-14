@@ -7,11 +7,11 @@ import spray.json._
 
 case class Foo(bar: String)
 
-class ExternalApi(refFactory: ActorRefFactory) extends HttpService with DefaultJsonProtocol with SprayJsonSupport {
+class DetachedRoute(refFactory: ActorRefFactory) extends HttpService with DefaultJsonProtocol with SprayJsonSupport {
   override implicit def actorRefFactory: ActorRefFactory = refFactory
   implicit val FooFormat = jsonFormat1(Foo)
 
-  val detachedRoute = pathPrefix("api" / "detached") {
+  val route = pathPrefix("api" / "detached") {
     detach() {
       get {
         complete("")

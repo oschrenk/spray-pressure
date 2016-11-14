@@ -13,9 +13,9 @@ class RestActor extends Actor with HttpService {
       }
     }
 
-  val externalApi = new ExternalApi(context)
+  val detachedRoute = new DetachedRoute(context)
 
   def receive = runRoute(
-    externalApi.detachedRoute
+    detachedRoute.route
   )
 }
