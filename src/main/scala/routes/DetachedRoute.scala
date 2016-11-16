@@ -14,16 +14,16 @@ class DetachedRoute(implicit system: ActorSystem) extends HttpService {
 
   private val ecDetach = system.dispatchers.lookup("execution-contexts.detach")
 
-  val route = pathPrefix("api") {
+  val route = pathPrefix("detach") {
     get {
-      path("normal") {
+      path("none") {
         logDirective {
           complete {
             logger.info("Inside un-detached complete")
             "Not detached"
           }
         }
-      } ~ path("detach-implicit") {
+      } ~ path("implicit") {
         detach() {
           logDirective {
             complete {
@@ -32,7 +32,7 @@ class DetachedRoute(implicit system: ActorSystem) extends HttpService {
             }
           }
         }
-      } ~ path("detach-explicit") {
+      } ~ path("explicit") {
         detach(ecDetach) {
           logDirective {
             complete {

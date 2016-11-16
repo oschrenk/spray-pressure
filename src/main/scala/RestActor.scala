@@ -1,7 +1,5 @@
 import akka.actor.Actor
-import network.{AsyncClient, BlockingClient}
-import routes.{DetachedRoute, TransformRoute}
-import service.TransformService
+import routes.DetachedRoute
 import spray.routing.ExceptionHandler
 import spray.routing._
 
@@ -17,14 +15,9 @@ class RestActor extends Actor with HttpService {
       }
     }
 
-  val asyncClient = new AsyncClient()
-  val blockingClient = new BlockingClient()
-  val transformService = new TransformService(asyncClient, blockingClient)
-
   val detachedRoute = new DetachedRoute()(context.system)
-  val transformRoute = new TransformRoute(transformService)
 
   def receive = runRoute(
-    detachedRoute.route ~ transformRoute.route
+    detachedRoute.route
   )
 }
