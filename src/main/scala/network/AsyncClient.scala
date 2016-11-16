@@ -3,7 +3,6 @@ package network
 import akka.actor.ActorSystem
 import org.slf4j.LoggerFactory
 import spray.client.pipelining._
-import spray.http.StatusCodes._
 import spray.http.{HttpRequest, HttpResponse}
 
 import scala.concurrent.Future
@@ -30,11 +29,9 @@ class AsyncClient(implicit system: ActorSystem) {
     logger.info("before pipeline")
     pipeline(Get(uri)).map {
       response => response.status match {
-        case OK =>
+        case _ =>
           logger.info("response handling")
           Some(text)
-        case NotFound => None
-        case error => throw new IllegalStateException(s"Received status code $error")
       }
     }
   }
